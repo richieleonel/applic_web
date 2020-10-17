@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{%  block stylesheet %}
+    <link rel="stylesheet" href="{{ asset('css/styles.css') }}">
+{% endblock %}
+
 {% block titre %}
     {{ cours.nom }}
 {% endblock %}
@@ -12,21 +16,23 @@
     <div class="row">
 
         <div class="col-md-8">
-            {% for commentaire in cours.commentaires %}
-                <div class="list-group-item">
-                    <h5>{{ commentaire.description }}</h5><br>
-                    <h10>Crée le {{ commentaire.createdAt|date('d/m/Y') }} par  {{ commentaire.username }}</h10>
-                </div>
-                <br>
-            {% endfor %}
+            <div class="visiblescrollbar">
+                {% for commentaire in cours.commentaires %}
+                    <div class="list-group-item">
+                        <h5>{{ commentaire.description }}</h5><br>
+                        <h10>Crée le {{ commentaire.createdAt|date('d/m/Y') }} par {{ commentaire.username }}</h10>
+                    </div>
+                    <br>
+                {% endfor %}
+            </div>
         </div>
         <div class="col-md-4">
             {% for file in cours.fichier %}
                 <i class="fa fa-file" aria-hidden="true"></i>
                 {{ file.nom }}
-                    <a href="/uploads/docCours/{{ file.path }}">
-                        <i class="fa fa-download" aria-hidden="true"></i>
-                    </a>
+                <a href="/uploads/docCours/{{ file.path }}">
+                    <i class="fa fa-download" aria-hidden="true"></i>
+                </a>
                 ajouté le : {{ file.createdAt|date("j/m/yy") }}
                 <br>
             {% endfor %}
